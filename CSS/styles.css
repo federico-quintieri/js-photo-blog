@@ -7,3 +7,29 @@
 img {
   max-width: 100%;
 }
+
+header {
+  background-image: url("../img/wall.png");
+}
+
+header h1 {
+  font-family: "Sometype Mono", serif;
+  font-style: italic;
+  font-size: 5rem;
+}
+
+body {
+  background-image: url("../img/cork.png");
+}
+main {
+  font-family: "Edu TAS Beginner", serif;
+}
+.card {
+  position: relative;
+}
+#pin {
+  width: 30px;
+  position: absolute;
+  top: -15px;
+  left: 45%;
+}
