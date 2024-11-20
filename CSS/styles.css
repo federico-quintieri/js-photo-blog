@@ -48,13 +48,23 @@ main {
   /* margin-top: 30vh; */
 }
 
+/* Applichiamo stile alle immagini del div modal */
 #img-in-modal {
-  /* Makes the image responsive */
   width: 100%;
-  /* Fixes the height */
   height: 300px;
-  /* Ensures the image covers the area without distortion */
   object-fit: cover;
+}
+
+/* Effetti over sulle immagini nelle card */
+.card:hover img {
+  /* Transitions serve per rendere fluido il movimento */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+
+  /* Transform modifiche la grandezza e la rotazione dell'immagine */
+  transform: scale(1.1) rotate(10deg);
+  /* box-shadow aggiunge l'ombra sotto */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Responsive title */
