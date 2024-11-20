@@ -28,8 +28,12 @@
     <!-- Fatto un div overlay scuro -->
     <div id="overlay-div" class="d-flex align-items-center d-none">
       <div id="modal-div" class="rounded p-3 text-center">
-        <img src="./img/7.png" alt="" />
-        <button id="btnCloseOverlay" class="btn btn-warning my-3">Chiudi</button>
+        <img id="img-in-modal" src="./img/7.png" alt="" />
+        <div>
+          <button id="btnCloseOverlay" class="btn btn-warning my-3">
+            Chiudi
+          </button>
+        </div>
       </div>
     </div>
 
@@ -49,7 +53,11 @@
               data-img-url="./img/7.png"
             >
               <img id="pin" src="./img/pin.svg" alt="" />
-              <img src="./img/7.png" class="card-img-top real-img-card" alt="..." />
+              <img
+                src="./img/7.png"
+                class="card-img-top real-img-card"
+                alt="..."
+              />
               <div class="card-body">
                 <p class="card-text">
                   Accusamus Beatas Ad Facilis Cum Similique Qui Sunt

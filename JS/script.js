@@ -65,19 +65,30 @@ axios
     checkAttributo(arrayImgCard);
   });
 
+// Prendiamo elemento overlay div
 const overlayDIV = document.getElementById("overlay-div");
 // console.log(overlayDIV);
 
+// Prendiamo l'elemento button nel modale
 const btnCloseOverlay = document.getElementById("btnCloseOverlay");
-console.log(btnCloseOverlay);
+// console.log(btnCloseOverlay);
 
+// Seleziono il div modale
+const modalDiv = document.getElementById("modal-div");
+// console.log(modalDiv);
+
+const imgModal = document.getElementById("img-in-modal");
+// console.log(imgModal);
+
+
+// Aggiungo un evento click al button dell'overlay
 btnCloseOverlay.addEventListener("click", (event) => {
   event.preventDefault();
   overlayDIV.classList.toggle("d-none");
 });
 
 function checkAttributo(arrayElementi) {
-  // Itero l'array che contiene le card html
+  // Itero l'array che contiene le img card html
   arrayElementi.forEach((currElement, currIndex) => {
     // Controllo il src attribute delle immagini prese
     // console.log(currElement.getAttribute("src"));
@@ -90,7 +101,12 @@ function checkAttributo(arrayElementi) {
       // Impedisco l'aggiornamento della pagina
       event.preventDefault();
 
+      // Disattivo la classe d-none dell'elemento overlayDIV
       overlayDIV.classList.toggle("d-none");
+
+      // Mi crea un elemento immagine html con il giusto percorso url che sarebbe il src dell'immagine iniziale
+      imgModal.setAttribute("src",srcAttributo);
+      
     });
   });
 }
