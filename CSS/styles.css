@@ -16,7 +16,6 @@ header h1 {
   font-family: "Sometype Mono", serif;
   font-style: italic;
   font-size: 2.5rem;
-  
 }
 
 body {
@@ -33,6 +32,22 @@ main {
   position: absolute;
   top: -15px;
   left: 45%;
+}
+
+#overlay-div {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal-div {
+  background-color: white;
+  width: 30vw;
+  margin: 0 auto;
+  /* margin-top: 30vh; */
+
 }
 
 /* Responsive title */

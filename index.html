@@ -25,16 +25,31 @@
     />
   </head>
   <body>
+    <!-- Fatto un div overlay scuro -->
+    <div id="overlay-div" class="d-flex align-items-center d-none">
+      <div id="modal-div" class="rounded p-3 text-center">
+        <img src="./img/7.png" alt="" />
+        <button id="btnCloseOverlay" class="btn btn-warning my-3">Chiudi</button>
+      </div>
+    </div>
+
+    <!-- Header section -->
     <header class="text-center pt-3 pb-3">
       <h1>ESTATE '24</h1>
     </header>
+
+    <!-- Main sections -->
     <main>
       <div class="container">
         <div class="row pt-3 pb-3">
           <div class="col p-2 d-flex justify-content-center col-lg-4">
-            <div class="card p-2" style="width: 18rem">
+            <div
+              class="card p-2"
+              style="width: 18rem"
+              data-img-url="./img/7.png"
+            >
               <img id="pin" src="./img/pin.svg" alt="" />
-              <img src="./img/7.png" class="card-img-top" alt="..." />
+              <img src="./img/7.png" class="card-img-top real-img-card" alt="..." />
               <div class="card-body">
                 <p class="card-text">
                   Accusamus Beatas Ad Facilis Cum Similique Qui Sunt
