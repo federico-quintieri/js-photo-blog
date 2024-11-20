@@ -1,11 +1,31 @@
-// Prendiamo elementi HTML
+//-----------------------------------\\
+// ELEMNTI HTML
+//-----------------------------------\\
 
+// Prendiamo la row
 const rowElement = document.querySelector(".row");
 // console.log(rowElement);
 
-let arrayOggettiAPI = "";
+// Prendiamo elemento overlay div
+const overlayDIV = document.getElementById("overlay-div");
+// console.log(overlayDIV);
 
-// Devo fare una funzione che inserisce una stringa HTML in un certo elemento
+// Prendiamo l'elemento button nel modale
+const btnCloseOverlay = document.getElementById("btnCloseOverlay");
+// console.log(btnCloseOverlay);
+
+// Seleziono il div modale
+const modalDiv = document.getElementById("modal-div");
+// console.log(modalDiv);
+
+const imgModal = document.getElementById("img-in-modal");
+// console.log(imgModal);
+
+//-----------------------------------\\
+// FUNZIONI
+//-----------------------------------\\
+
+// Funzione che inserisce le card
 const insertHTML = (baseHTML, arrayElementi) => {
   // Accetto un array di oggetti contenenti le informazioni che mi servono
 
@@ -28,7 +48,7 @@ const insertHTML = (baseHTML, arrayElementi) => {
                 </p>
               </div>
               <div class="text-center">
-                <button id="btnCancellaCard" class="btn btn-danger">
+                <button class="btn btn-danger btnCancellaCard">
                   Cancella Card
                 </button>
               </div>
@@ -41,64 +61,8 @@ const insertHTML = (baseHTML, arrayElementi) => {
   });
 };
 
-// Faccio oggetto per limitare risultato API
-const parametri = {
-  _limit: 5,
-};
-
-// Faccio chiamato API tramite axios
-axios
-  .get("https://jsonplaceholder.typicode.com/photos", {
-    params: parametri,
-  })
-  .then((apiResponse) => {
-    //  console.log("Ho ricevuto risposta dall'api", apiResponse);
-    arrayOggettiAPI = apiResponse.data;
-    // console.log("risposta api", apiResponse);
-    // console.log(
-    //   "questo é l'array degli oggetti presi dalla api",
-    //   arrayOggettiAPI
-    // );
-
-    // Ottenuto l'array degli oggetti dall'API lo mandiamo come parametroa alla funzione che ci fa gli elementi e li inserisce in rowElement
-    insertHTML(rowElement, arrayOggettiAPI);
-
-    // Prendiamo tutte le colonne/cards e le mettiamo in un array
-    const arrayCards = document.querySelectorAll(".col");
-    // console.log(arrayCards);
-
-    // Aggiungo evento su elemento per cancellare tutte le card
-    trashElement(arrayCards);
-
-    // Prendo tutte le immagini nelle card e le mettiamo in un array di elementi
-    const arrayImgCard = document.querySelectorAll(".real-img-card");
-    // console.log(arrayImgCard);
-
-    checkAttributo(arrayImgCard);
-  });
-
-// Prendiamo elemento overlay div
-const overlayDIV = document.getElementById("overlay-div");
-// console.log(overlayDIV);
-
-// Prendiamo l'elemento button nel modale
-const btnCloseOverlay = document.getElementById("btnCloseOverlay");
-// console.log(btnCloseOverlay);
-
-// Seleziono il div modale
-const modalDiv = document.getElementById("modal-div");
-// console.log(modalDiv);
-
-const imgModal = document.getElementById("img-in-modal");
-// console.log(imgModal);
-
-// Aggiungo un evento click al button dell'overlay
-btnCloseOverlay.addEventListener("click", (event) => {
-  event.preventDefault();
-  overlayDIV.classList.toggle("d-none");
-});
-
-function checkAttributo(arrayElementi) {
+// Funzione che al click di una card mostra il modal e cambia url dell'immagine in esso
+const checkAttributo = (arrayElementi) => {
   // Itero l'array che contiene le img card html
   arrayElementi.forEach((currElement, currIndex) => {
     // Controllo il src attribute delle immagini prese
@@ -119,15 +83,47 @@ function checkAttributo(arrayElementi) {
       imgModal.setAttribute("src", srcAttributo);
     });
   });
-}
+};
 
-// Faccio funzione che aggiunge evento all'elemento button per cancellare la card
-// Aggiunge la classe di d-none a tutta la card
-function trashElement(arrayElementi) {
-  arrayElementi.forEach((currElement) => {
-    currElement.addEventListener("click", (event) => {
-      event.preventDefault();
-      currElement.classList.add("d-none");
-    });
+//-----------------------------------\\
+// EVENTI GLOBALI
+//-----------------------------------\\
+
+// Aggiungo un evento click al button dell'overlay
+btnCloseOverlay.addEventListener("click", (event) => {
+  event.preventDefault();
+  overlayDIV.classList.toggle("d-none");
+});
+
+//-----------------------------------\\
+// API CALL
+//-----------------------------------\\
+
+axios
+  .get("https://jsonplaceholder.typicode.com/photos?_limit=5")
+  .then((apiResponse) => {
+
+    let arrayOggettiAPI = apiResponse.data;
+    // console.log("risposta api", apiResponse);
+    // console.log(
+    //   "questo é l'array degli oggetti presi dalla api",
+    //   arrayOggettiAPI
+    // );
+
+    // Ottenuto l'array degli oggetti dall'API lo mandiamo come parametro alla funzione che ci fa gli elementi e li inserisce in rowElement
+    insertHTML(rowElement, arrayOggettiAPI);
+
+    // Prendo tutte le immagini nelle card e le mettiamo in un array di elementi
+    const arrayImgCard = document.querySelectorAll(".real-img-card");
+    // console.log(arrayImgCard);
+
+    checkAttributo(arrayImgCard);
+
+    // Prendiamo tutte le colonne/cards e le mettiamo in un array
+    const arrayCards = document.querySelectorAll(".col");
+    // console.log(arrayCards);
+
+    // Prendiamo un array con i nostri button nelle card
+    const btnCancellaCard = document.querySelectorAll(".btnCancellaCard");
+    // console.log(btnCancellaCard);
   });
-}
