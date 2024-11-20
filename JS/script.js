@@ -19,13 +19,18 @@ const insertHTML = (baseHTML, arrayElementi) => {
 
     // Ho creato un nuovo attributo 'data-img-url' nella creazione della card dove ho inserito l'url dell'immagine
     stringHTML = `<div class="col  p-2 d-flex justify-content-center col-lg-4">
-            <div class="card p-2" style="width: 18rem" data-img-url="${thumbnailUrl}">
+            <div class="card p-2" style="width: 18rem">
               <img id="pin" src="./img/pin.svg" alt="" />
               <img src="${thumbnailUrl}" class="card-img-top real-img-card" alt="..." />
               <div class="card-body">
                 <p class="card-text">
                   ${title}
                 </p>
+              </div>
+              <div class="text-center">
+                <button id="btnCancellaCard" class="btn btn-danger">
+                  Cancella Card
+                </button>
               </div>
             </div>
           </div>`;
@@ -58,6 +63,13 @@ axios
     // Ottenuto l'array degli oggetti dall'API lo mandiamo come parametroa alla funzione che ci fa gli elementi e li inserisce in rowElement
     insertHTML(rowElement, arrayOggettiAPI);
 
+    // Prendiamo tutte le colonne/cards e le mettiamo in un array
+    const arrayCards = document.querySelectorAll(".col");
+    // console.log(arrayCards);
+
+    // Aggiungo evento su elemento per cancellare tutte le card
+    trashElement(arrayCards);
+
     // Prendo tutte le immagini nelle card e le mettiamo in un array di elementi
     const arrayImgCard = document.querySelectorAll(".real-img-card");
     // console.log(arrayImgCard);
@@ -79,7 +91,6 @@ const modalDiv = document.getElementById("modal-div");
 
 const imgModal = document.getElementById("img-in-modal");
 // console.log(imgModal);
-
 
 // Aggiungo un evento click al button dell'overlay
 btnCloseOverlay.addEventListener("click", (event) => {
@@ -105,10 +116,18 @@ function checkAttributo(arrayElementi) {
       overlayDIV.classList.toggle("d-none");
 
       // Mi crea un elemento immagine html con il giusto percorso url che sarebbe il src dell'immagine iniziale
-      imgModal.setAttribute("src",srcAttributo);
-      
+      imgModal.setAttribute("src", srcAttributo);
     });
   });
 }
 
-// Se io clicco su un'immagine, posso estrapolare il src e metterlo in una variabile
+// Faccio funzione che aggiunge evento all'elemento button per cancellare la card
+// Aggiunge la classe di d-none a tutta la card
+function trashElement(arrayElementi) {
+  arrayElementi.forEach((currElement) => {
+    currElement.addEventListener("click", (event) => {
+      event.preventDefault();
+      currElement.classList.add("d-none");
+    });
+  });
+}
