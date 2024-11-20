@@ -1,5 +1,5 @@
 //-----------------------------------\\
-// ELEMNTI HTML
+// ELEMENTI HTML
 //-----------------------------------\\
 
 // Prendiamo la row
@@ -26,7 +26,7 @@ const imgModal = document.getElementById("img-in-modal");
 //-----------------------------------\\
 
 // Funzione che inserisce le card
-const insertHTML = (baseHTML, arrayElementi) => {
+const insertCards = (baseHTML, arrayElementi) => {
   // Accetto un array di oggetti contenenti le informazioni che mi servono
 
   let stringHTML = "";
@@ -62,7 +62,7 @@ const insertHTML = (baseHTML, arrayElementi) => {
 };
 
 // Funzione che al click di una card mostra il modal e cambia url dell'immagine in esso
-const checkAttributo = (arrayElementi) => {
+const addEventCard = (arrayElementi) => {
   // Itero l'array che contiene le img card html
   arrayElementi.forEach((currElement, currIndex) => {
     // Controllo il src attribute delle immagini prese
@@ -85,6 +85,21 @@ const checkAttributo = (arrayElementi) => {
   });
 };
 
+// Funzione che aggiunge l'evento ai button per cancellare le card
+const addEventDelete = (arrayCard, arrayButton) => {
+  // Ciclo for che itera elementi Cancella Button (uno per card)
+  for (let i = 0; i < arrayButton.length; i++) {
+    const currButton = arrayButton[i];
+    // console.log(currButton + " " + i);
+
+    currButton.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      arrayCard[i].classList.add("d-none");
+    });
+  }
+};
+
 //-----------------------------------\\
 // EVENTI GLOBALI
 //-----------------------------------\\
@@ -102,21 +117,18 @@ btnCloseOverlay.addEventListener("click", (event) => {
 axios
   .get("https://jsonplaceholder.typicode.com/photos?_limit=5")
   .then((apiResponse) => {
+    // Otteniamo array oggetti con i nostri dati
     let arrayOggettiAPI = apiResponse.data;
-    // console.log("risposta api", apiResponse);
-    // console.log(
-    //   "questo é l'array degli oggetti presi dalla api",
-    //   arrayOggettiAPI
-    // );
 
     // Ottenuto l'array degli oggetti dall'API lo mandiamo come parametro alla funzione che ci fa gli elementi e li inserisce in rowElement
-    insertHTML(rowElement, arrayOggettiAPI);
+    insertCards(rowElement, arrayOggettiAPI);
 
     // Prendo tutte le immagini nelle card e le mettiamo in un array di elementi
     const arrayImgCard = document.querySelectorAll(".real-img-card");
     // console.log(arrayImgCard);
 
-    checkAttributo(arrayImgCard);
+    // Aggiunge evento click sulle card per mostrare div modal
+    addEventCard(arrayImgCard);
 
     // Prendiamo tutte le colonne/cards e le mettiamo in un array
     const arrayCards = document.querySelectorAll(".col");
@@ -126,15 +138,6 @@ axios
     const btnCancellaCard = document.querySelectorAll(".btnCancellaCard");
     // console.log(btnCancellaCard);
 
-    // Ciclo for che itera elementi Cancella Button (uno per card)
-    for (let i = 0; i < btnCancellaCard.length; i++) {
-      const currButton = btnCancellaCard[i];
-      // console.log(currButton + " " + i);
-
-      currButton.addEventListener("click", (event) => {
-        event.preventDefault();
-
-        arrayCards[i].classList.add("d-none");
-      });
-    }
+    // Richiamo funzione che aggiunge evento ai button nelle card per rimuovere la card
+    addEventDelete(arrayCards, btnCancellaCard);
   });
