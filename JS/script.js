@@ -102,7 +102,6 @@ btnCloseOverlay.addEventListener("click", (event) => {
 axios
   .get("https://jsonplaceholder.typicode.com/photos?_limit=5")
   .then((apiResponse) => {
-
     let arrayOggettiAPI = apiResponse.data;
     // console.log("risposta api", apiResponse);
     // console.log(
@@ -126,4 +125,16 @@ axios
     // Prendiamo un array con i nostri button nelle card
     const btnCancellaCard = document.querySelectorAll(".btnCancellaCard");
     // console.log(btnCancellaCard);
+
+    // Ciclo for che itera elementi Cancella Button (uno per card)
+    for (let i = 0; i < btnCancellaCard.length; i++) {
+      const currButton = btnCancellaCard[i];
+      // console.log(currButton + " " + i);
+
+      currButton.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        arrayCards[i].classList.add("d-none");
+      });
+    }
   });
